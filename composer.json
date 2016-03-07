@@ -1,0 +1,38 @@
+{
+    "name": "souzavitor/middleware-message",
+    "description": "Um middleware simples para cadastro e exibição de mensagens a partir de uma autenticação",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vitor de Souza",
+            "email": "souza.vitor@outlook.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {
+        "psr/http-message": "~1.0",
+        "aura/router": "^2.3",
+        "zendframework/zend-diactoros": "~1.3",
+        "zendframework/zend-stratigility": "~1.1",
+        "container-interop/container-interop": "~1.1",
+        "zendframework/zend-servicemanager": "~3.0",
+        "symfony/yaml": "~3.0",
+        "zendframework/zend-stdlib": "~2.7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.7",
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "MidFrame\\": "src/MidFrame",
+            "App\\": "src/App"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MidFrameTest\\": "test/MidFrame",
+            "AppTest\\": "test/App"
+        }
+    }
+}
