@@ -3,7 +3,7 @@ return [
     'routes' => [
         [
             'name' => 'home',
-            'path' => '/{message}',
+            'path' => '/',
             'middleware' => App\Action\HomePageAction::class,
             'allowed_methods' => ['GET'],
         ],

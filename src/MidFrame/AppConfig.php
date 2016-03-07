@@ -15,6 +15,10 @@ use Symfony\Component\Yaml\Exception\ParseException;
 /**
  * Application configuration
  *
+ * This class is used to manage and get the configurations in the application.
+ *
+ * @property array $config The array with all the configurations loaded in the application
+ * @property string $configBasePath The location where the configurations are stored
  * @author Vitor de Souza <souza.vitor@outlook.com>
  */
 class AppConfig

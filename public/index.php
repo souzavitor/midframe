@@ -14,9 +14,9 @@ chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
 
 $config = new AppConfig;
-
 $container = new ServiceManager($config->get('dependencies'));
 $container->setService('AppConfig', $config);
+$container->setFactory(MidFrame\Application::class, MidFrame\Container\ApplicationFactory::class);
 
 $app = $container->get('MidFrame\Application');
 $app->run();

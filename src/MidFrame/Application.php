@@ -31,6 +31,9 @@ use Zend\ServiceManager\ServiceManager;
 /**
  * The Middleware Application Class
  *
+ * This the main class of the application. Here we have all we need to pipe the middlewares.
+ * The Application uses the Zend\Stratigility\MiddlewarePipe to create a middleware pipe with PSR-7 concept.
+ *
  * @author Vitor de Souza <souza.vitor@outlook.com>
  */
 class Application extends MiddlewarePipe

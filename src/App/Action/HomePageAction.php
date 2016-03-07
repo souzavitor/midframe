@@ -13,17 +13,21 @@ use Zend\Expressive\Plates\PlatesRenderer;
 use Zend\Expressive\Twig\TwigRenderer;
 use Zend\Expressive\ZendView\ZendViewRenderer;
 
+/**
+ * A welcome page
+ *
+ * Here we can tel more about our framework (but only if you want to share your ideas)
+ *
+ * @author Vitor de Souza <souza.vitor@outlook.com>
+ */
 class HomePageAction
 {
-    private $message;
-    public function __construct($message)
-    {
-        $this->message = $message;
-    }
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
         return new JsonResponse([
-            'welcome' => $this->message
+            'welcome' => 'Welcome to MidFrame!',
+            'description' => 'MidFrame is a new framework to create simple and light middleware applications. MidFrame can create APIs with diffrente resource formats in a easy and fast way.',
+            'inspire' => 'Have fun...'
         ]);
     }
 }
