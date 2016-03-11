@@ -117,6 +117,9 @@ class AuraRouterAdapter implements RouterInterface
                 case 'values':
                     $auraRoute->addValues($value);
                     break;
+                case 'accepts':
+                    $auraRoute->addAccept($value);
+                    break;
             }
         }
 
@@ -160,17 +163,34 @@ class AuraRouterAdapter implements RouterInterface
     {
         $failedRoute = $this->router->getFailedRoute();
         if (null === $failedRoute) {
-            return RouteResult::fromRouteFailure();
+            $routeResult = RouteResult::fromRouteFailure();
+            $routeResult->setCode(404);
+            return $routeResult;
+        }
+        if ($failedRoute->failedAccept() || $failedRoute->failedMethod()) {
+            $routeResult = RouteResult::fromRouteFailure($failedRoute->failed);
+            if ($failedRoute->failedMethod()) {
+                $routeResult->setAllowedMethods($failedRoute->method);
+                $routeResult->setCode(405);
+            } elseif ($failedRoute->failedAccept()) {
+                $routeResult->setAccept($failedRoute->accept);
+                $routeResult->setCode(406);
+            }
+            return $routeResult;
         }
         if ($failedRoute->failedMethod()) {
-            return RouteResult::fromRouteFailure($failedRoute->method);
+            $routeResult = RouteResult::fromRouteFailure($failedRoute->failed);
+            $routeResult->setCode(405);
+            return $routeResult;
         }
         list($path) = explode('^', $failedRoute->name);
         if (isset($failedRoute->failed)
             && $failedRoute->failed !== Route::FAILED_REGEX
             && array_key_exists($path, $this->routes)
         ) {
-            return RouteResult::fromRouteFailure($this->routes[$path]);
+            $routeResult = RouteResult::fromRouteFailure($this->routes[$path]);
+            $routeResult->setCode(405);
+            return $routeResult;
         }
         return RouteResult::fromRouteFailure();
     }
@@ -178,8 +198,6 @@ class AuraRouterAdapter implements RouterInterface
     /**
      * Generate a URI from the named route.
      *
-     * @see https://github.com/auraphp/Aura.Router#generating-a-route-path
-     * @see http://framework.zend.com/manual/current/en/modules/zend.mvc.routing.html
      * @param string $name
      * @param array $substitutions
      * @return string

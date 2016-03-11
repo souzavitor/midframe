@@ -14,6 +14,7 @@ use MidFrame\Router\AuraRouterAdapter as Router;
 use MidFrame\Router\FailureRouteResult;
 use MidFrame\Middleware\RouteMiddleware;
 use MidFrame\Middleware\DispatchMiddleware;
+use MidFrame\Middleware\ErrorHandlerMiddleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -25,7 +26,7 @@ use Zend\Diactoros\Response\SapiEmitter;
 use Zend\Diactoros\ServerRequestFactory;
 
 use Zend\Stratigility\MiddlewarePipe;
-
+use Zend\Stratigility\ErrorMiddlewareInterface;
 use Zend\ServiceManager\ServiceManager;
 
 /**
@@ -173,9 +174,28 @@ class Application extends MiddlewarePipe
         $this->router->addRoute($spec);
     }
 
+    /**
+     * Pipe the router middleware and the dispatch middleware
+     *
+     * @return void
+     */
     public function pipeRouteMiddleware()
     {
         $this->pipe(new RouteMiddleware($this->router));
         $this->pipe(new DispatchMiddleware);
+    }
+
+    /**
+     * Pipe the error handler
+     *
+     *
+     * @return void
+     */
+    public function pipeErrorMiddleware(ErrorMiddlewareInterface $errorMiddleware = null)
+    {
+        if (is_null($errorMiddleware)) {
+            $errorMiddleware = new ErrorHandlerMiddleware;
+        }
+        $this->pipe($errorMiddleware);
     }
 }

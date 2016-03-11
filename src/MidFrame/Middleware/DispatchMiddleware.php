@@ -37,12 +37,17 @@ class DispatchMiddleware extends MiddlewarePipe
         if (!$routeResult) {
             return $next($request, $response);
         }
-        $ref = new ReflectionClass($routeResult->getMatchedMiddleware());
-        $args = $routeResult->getMatchedParams();
-        if ($ref->getConstructor()) {
-            $middleware = $ref->newInstance($args);
+        $matchedMiddleware = $routeResult->getMatchedMiddleware();
+        if (is_string($matchedMiddleware)) {
+            $ref = new ReflectionClass($matchedMiddleware);
+            $args = $routeResult->getMatchedParams();
+            if ($ref->getConstructor()) {
+                $middleware = $ref->newInstance($args);
+            } else {
+                $middleware = $ref->newInstance();
+            }
         } else {
-            $middleware = $ref->newInstance();
+            throw new InvalidMiddlewareException();
         }
         return $middleware($request, $response);
     }

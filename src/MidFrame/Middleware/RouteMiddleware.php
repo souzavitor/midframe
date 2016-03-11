@@ -50,12 +50,17 @@ class RouteMiddleware extends MiddlewarePipe
     {
         $result = $this->router->match($request);
         if ($result->isFailure()) {
-            if ($result->isMethodFailure()) {
-                $response = $response->withStatus(405)
+            if ($result->failedMethod()) {
+                $response = $response
+                    ->withStatus($result->getCode())
                     ->withHeader('Allow', implode(',', $result->getAllowedMethods()));
-                return $next($request, $response, 405);
+                return $next($request, $response, $result->getCode());
+            } elseif ($result->failedAccept()) {
+                $response = $response->withStatus($result->getCode())
+                    ->withHeader('Accepts', implode(',', $result->getAllowedAccepts()));
+                return $next($request, $response, $result->getCode());
             }
-            return $next($request, $response);
+            return $next($request, $response, 404);
         }
 
         $request = $request->withAttribute(RouteResult::class, $result);

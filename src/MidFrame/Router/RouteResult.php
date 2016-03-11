@@ -48,6 +48,16 @@ class RouteResult
     private $route;
 
     /**
+     * @var int code
+     */
+    private $code;
+
+    /**
+     * @var string
+     */
+    private $failed = null;
+
+    /**
      * Create an instance repesenting a route success match.
      *
      * @param Aura\Router\Route $route
@@ -73,16 +83,11 @@ class RouteResult
      * @param null|int|array $methods HTTP methods allowed for the current URI, if any
      * @return static
      */
-    public static function fromRouteFailure($methods = null)
+    public static function fromRouteFailure($failed)
     {
         $result = new self();
         $result->success = false;
-        if ($methods === null) {
-            $result->allowedMethods = ['*'];
-        }
-        if (is_array($methods)) {
-            $result->allowedMethods = $methods;
-        }
+        $result->failed = $failed;
         return $result;
     }
 
@@ -143,16 +148,25 @@ class RouteResult
     }
 
     /**
-     * Does the result represent failure to route due to HTTP method?
+     *
+     * Check whether a failure happened due to accept header
      *
      * @return bool
      */
-    public function isMethodFailure()
+    public function failedAccept()
     {
-        if ($this->isSuccess() || null === $this->allowedMethods) {
-            return false;
-        }
-        return true;
+        return $this->failed == \Aura\Router\Route::FAILED_ACCEPT;
+    }
+
+    /**
+     *
+     * Check whether a failure happened due to http method
+     *
+     * @return bool
+     */
+    public function failedMethod()
+    {
+        return $this->failed == \Aura\Router\Route::FAILED_METHOD;
     }
 
     /**
@@ -172,6 +186,32 @@ class RouteResult
     }
 
     /**
+     * Sets the allowed methods for the route failure.
+     *
+     * @return string[] HTTP methods allowed
+     */
+    public function setAllowedMethods(array $methods)
+    {
+        if ($this->isSuccess()) {
+            $this->allowedMethods = [];
+        }
+        $this->allowedMethods = $methods;
+    }
+
+    /**
+     * Sets the allowed methods for the route failure.
+     *
+     * @return string[] HTTP methods allowed
+     */
+    public function setAccept(array $accept)
+    {
+        if ($this->isSuccess()) {
+            $this->accept = [];
+        }
+        $this->accept = $accept;
+    }
+
+    /**
      * Get the Aura Route matched
      *
      * @return Aura\Router\Route
@@ -179,6 +219,26 @@ class RouteResult
     public function getRoute()
     {
         return $this->route;
+    }
+
+    /**
+     * Gets the http error code
+     *
+     * @return int
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Sets the http error code
+     *
+     * @param int $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
     }
 
     /**

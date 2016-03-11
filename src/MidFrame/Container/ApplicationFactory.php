@@ -45,21 +45,26 @@ class ApplicationFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        $router = $container->has('MidFrame\Router\RouterInterface') ?
-            $container->get('MidFrame\Router\RouterInterface') :
-            new AuraRouterAdapter;
+        $router = $container->has('MidFrame\Router\RouterInterface')
+            ? $container->get('MidFrame\Router\RouterInterface')
+            : new AuraRouterAdapter;
 
         $finalHandler = $container->has('MidFrame\FinalHandler')
             ? $container->get('MidFrame\FinalHandler')
             : null;
 
-        $emitter = $container->has(EmitterInterface::class) ?
-            $container->get(EmitterInterface::class) :
-            null;
+        $emitter = $container->has(EmitterInterface::class)
+            ? $container->get(EmitterInterface::class)
+            : null;
+
+        $errorMiddleware = $container->has('MidFrame\ErrorHandlerMiddleware')
+            ? $container->get('MidFrame\ErrorHandlerMiddleware')
+            : null;
 
         $app = new Application($router, $container, $finalHandler, $emitter);
 
         $this->injectRoutes($app, $container);
+        $app->pipeErrorMiddleware($errorMiddleware);
         return $app;
     }
 
