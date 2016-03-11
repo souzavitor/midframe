@@ -8,7 +8,8 @@ Have fun...
 
 ## @TODO
 
-- Handle with possible exceptions any middlewares;
+- Document the instalation and usage;
+- Handle with possible exceptions in any middlewares;
 - Create a post and pre routing middleware;
 - Create a specific middleware to parse the response array into resource formats (XML, JSON and others);
 - Use a translation library;
