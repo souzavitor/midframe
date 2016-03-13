@@ -11,10 +11,10 @@ namespace MidFrame\Exception;
 use RuntimeException;
 
 /**
- * InvalidAppConfigKey Exception
+ * MidFrameException
  *
  * @author Vitor de Souza <souza.vitor@outlook.com>
  */
-class InvalidAppConfigKey extends MidFrameException
+class MidFrameException extends RuntimeException implements ExceptionInterface
 {
 }

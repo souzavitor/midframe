@@ -6,13 +6,15 @@
  * @copyright   Copyright (c) 2015-2016
  * @license     https://github.com/souzavitor/midframe/blob/master/LICENSE.md
  */
-
 namespace MidFrame\Exception;
 
+use BadMethodCallException as Exception;
+
 /**
+ * MidFrame BadMethodCallException
+ *
  * @author Vitor de Souza <souza.vitor@outlook.com>
  */
-class BadMethodCallException extends \BadMethodCallException implements
-    ExceptionInterface
+class BadMethodCallException extends Exception implements ExceptionInterface
 {
 }

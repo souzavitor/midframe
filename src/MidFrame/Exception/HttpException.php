@@ -13,6 +13,6 @@ use RuntimeException;
 /**
  * @author Vitor de Souza <souza.vitor@outlook.com>
  */
-class InvalidMiddlewareException extends RuntimeException implements ExceptionInterface
+class HttpException extends MidFrameException
 {
 }

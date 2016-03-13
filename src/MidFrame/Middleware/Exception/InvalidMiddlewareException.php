@@ -6,15 +6,13 @@
  * @copyright   Copyright (c) 2015-2016
  * @license     https://github.com/souzavitor/midframe/blob/master/LICENSE.md
  */
-namespace MidFrame\Exception;
+namespace MidFrame\Middleware\Exception;
 
-use RuntimeException;
+use MidFrame\Exception\MidFrameException;
 
 /**
- * InvalidAppConfigKey Exception
- *
  * @author Vitor de Souza <souza.vitor@outlook.com>
  */
-class InvalidAppConfigKey extends MidFrameException
+class InvalidMiddlewareException extends MidFrameException
 {
 }
