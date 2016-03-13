@@ -6,10 +6,7 @@
  * @copyright   Copyright (c) 2015-2016
  * @license     https://github.com/souzavitor/midframe/blob/master/LICENSE.md
  */
-
 namespace MidFrame\Container;
-
-use SplPriorityQueue;
 
 use MidFrame\Application;
 use MidFrame\Router\RouterInterface;

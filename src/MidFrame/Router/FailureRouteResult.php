@@ -10,7 +10,7 @@
 namespace MidFrame\Router;
 
 /**
- * Class to handle with failure route
+ * Class to handle with a failure route match
  *
  * @author Vitor de Souza <souza.vitor@outlook.com>
  */

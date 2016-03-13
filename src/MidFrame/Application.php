@@ -182,7 +182,7 @@ class Application extends MiddlewarePipe
     public function pipeRouteMiddleware()
     {
         $this->pipe(new RouteMiddleware($this->router));
-        $this->pipe(new DispatchMiddleware);
+        $this->pipe(new DispatchMiddleware($this->container));
     }
 
     /**
