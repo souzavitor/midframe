@@ -6,11 +6,7 @@
  * @copyright   Copyright (c) 2015-2016
  * @license     https://github.com/souzavitor/midframe/blob/master/LICENSE.md
  */
-
 namespace MidFrame;
-
-use Symfony\Component\Yaml\Parser;
-use Symfony\Component\Yaml\Exception\ParseException;
 
 /**
  * Application configuration
@@ -34,11 +30,6 @@ class AppConfig
      * @var string
      */
     private $configBasePath = 'config/';
-
-    public function __construct()
-    {
-        $this->config = $this->get();
-    }
 
     /**
      * Get app config

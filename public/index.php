@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Middleware Framework
+ *
+ * @see         https://github.com/souzavitor/midframe
+ * @copyright   Copyright (c) 2015-2016
+ * @license     https://github.com/souzavitor/midframe/blob/master/LICENSE.md
+ */
 use MidFrame\AppConfig;
 use Zend\ServiceManager\ServiceManager;
 

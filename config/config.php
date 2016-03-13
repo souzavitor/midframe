@@ -15,7 +15,7 @@ use Zend\Stdlib\Glob;
  * Obviously, if you use closures in your config you can't cache it.
  */
 
-$cachedConfigFile = 'data/cache/app_config.php';
+$cachedConfigFile = 'data/cache/app_config.json';
 
 $config = [];
 if (is_file($cachedConfigFile)) {

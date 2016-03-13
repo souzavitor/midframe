@@ -5,7 +5,7 @@ return [
             'name' => 'home',
             'path' => '/',
             'middleware' => App\Action\HomePageAction::class,
-            'allowed_methods' => ['POST'],
+            'allowed_methods' => ['GET'],
         ],
     ],
 ];
